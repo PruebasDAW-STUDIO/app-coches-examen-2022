@@ -1,0 +1,28 @@
+{{#if correcto}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mx-auto mt-2">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>{{correcto}}!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
+
+
+{{#if message}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mx-auto mt-2">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>{{message}}!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}
