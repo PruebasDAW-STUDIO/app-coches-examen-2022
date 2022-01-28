@@ -67,7 +67,7 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
     description
   };
 
-  await pool.query('UPDATE links SET ? WHERE id = ? ', [newLink, id]);
+  await pool.query('UPDATE links SET ? WHERE id = ? AND user_id = ?', [newLink, id, req.user.id]);
   req.flash('correcto', 'Link actualizado correctamente');
   res.redirect('/links');
 });
