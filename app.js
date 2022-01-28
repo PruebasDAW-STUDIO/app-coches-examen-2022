@@ -48,29 +48,6 @@ app.use(session({
   store: new smysql(database)
 }));
 
-
-
-/*
-if(process.env.NODE_ENV === 'desarrollo'){
-app.use(session({
-  secret: 'patata',
-  resave: false,
-  saveUninitialized: false,
-  store: new smysql(database_dev)
-}));
-}else{
-
-//Middlewares
-app.use(session({
-  secret: 'patata',
-  resave: false,
-  saveUninitialized: false,
-  store: new smysql(database_prod)
-}));
-}
-
-*/
-
 app.use(flash());
 
 
