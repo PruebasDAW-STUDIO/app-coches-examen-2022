@@ -3,17 +3,20 @@ var express = require('express');
 var path = require('path');
 //var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
 const {engine} = require('express-handlebars');
 const flash = require('connect-flash');
 const session = require('express-session');
 const smysql = require('express-mysql-session'); 
-const { database } = require('./keys');
+const { database_dev, database_prod } = require('./keys');
 const passport = require('passport');
 const favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
 var authenticationRouter = require('./routes/authentication');
 var linksRouter = require('./routes/links');
+
+var database;
 
 var app = express();
 require('./lib/passport');
@@ -31,13 +34,43 @@ app.engine('.hbs', engine({
 
 app.set('view engine', '.hbs');
 
-//Middlewares
+if(process.env.NODE_ENV === 'produccion'){
+  database = database_prod
+}else{
+  database = database_dev
+}
+
+
 app.use(session({
   secret: 'patata',
   resave: false,
   saveUninitialized: false,
   store: new smysql(database)
 }));
+
+
+
+/*
+if(process.env.NODE_ENV === 'desarrollo'){
+app.use(session({
+  secret: 'patata',
+  resave: false,
+  saveUninitialized: false,
+  store: new smysql(database_dev)
+}));
+}else{
+
+//Middlewares
+app.use(session({
+  secret: 'patata',
+  resave: false,
+  saveUninitialized: false,
+  store: new smysql(database_prod)
+}));
+}
+
+*/
+
 app.use(flash());
 
 
