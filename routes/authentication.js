@@ -58,11 +58,11 @@ router.post('/passrecovery', async (req, res) => {
 
   console.log(req.body.username);
   
-  var existe = await helpers.existeUsuario(req.body.username);
+  var {existe, result } = await helpers.existeUsuario(req.body.username);
   console.log(existe);
-
+  console.log("PATATA",result[0]);
   if(existe){
-    req.flash('correcto', 'Se ha enviado un email a su correo');
+    req.flash('correcto', 'Se ha enviado un email a su correo', result[0].email);
     res.redirect('/authentication/signin');
   }else{
     req.flash('message', 'El usuario no existe');
@@ -70,6 +70,13 @@ router.post('/passrecovery', async (req, res) => {
 
   }
     
+});
+
+router.get('/resetpass', (req, res) => {
+  res.json({
+    text: 'protegido'
+  });
+
 });
 
 module.exports = router;
