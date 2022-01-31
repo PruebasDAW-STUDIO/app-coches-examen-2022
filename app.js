@@ -11,6 +11,7 @@ const smysql = require('express-mysql-session');
 const { database_dev, database_prod } = require('./keys');
 const passport = require('passport');
 const favicon = require('serve-favicon');
+const jwt = require('jsonwebtoken');
 
 var indexRouter = require('./routes/index');
 var authenticationRouter = require('./routes/authentication');

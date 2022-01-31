@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const helpers = require('../lib/helpers');
+const jwt = require('jsonwebtoken');
 
 
 const { isLoggedIn, isNotLoggedIn } = require('../lib/protect');
@@ -59,9 +60,24 @@ router.post('/passrecovery', async (req, res) => {
   console.log(req.body.username);
   
   var {existe, result } = await helpers.existeUsuario(req.body.username);
+  user = result[0];
   console.log(existe);
-  console.log("PATATA",result[0]);
+  console.log("PATATA",user);
   if(existe){
+
+    //TENEMOS QUE GENERAR EL TOKEN Y ENVIAR EL EMAIL CON LA RUTA CON ID Y EL TOKEN
+
+    const user_id = user.id;
+    const token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      data: 'foobar'
+    }, 'secret');
+    console.log('TOKENIZATE', token);
+    console.log('RUTA:', 'localhost:3000/authentication/resetpass/:id/:token');
+
+
+
+
     req.flash('correcto', 'Se ha enviado un email a su correo', result[0].email);
     res.redirect('/authentication/signin');
   }else{
@@ -72,7 +88,7 @@ router.post('/passrecovery', async (req, res) => {
     
 });
 
-router.get('/resetpass', (req, res) => {
+router.get('/resetpass', helpers.ensureToken, (req, res) => {
   res.json({
     text: 'protegido'
   });
