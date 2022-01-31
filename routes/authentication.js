@@ -70,10 +70,14 @@ router.post('/passrecovery', async (req, res) => {
     const user_id = user.id;
     const token = jwt.sign({
       exp: Math.floor(Date.now() / 1000) + (60 * 60),
-      data: 'foobar'
+      data: 'reset_password'
     }, 'secret');
     console.log('TOKENIZATE', token);
-    console.log('RUTA:', 'localhost:3000/authentication/resetpass/:id/:token');
+    console.log('RUTA:', `localhost:3000/authentication/resetpass/${user.id}/${token}`);
+    const resetlink = `localhost:3000/authentication/resetpass/${user.id}/${token}`;
+
+    console.log(resetlink);
+    helpers.sendEmailReset(user.username, user.email, resetlink);
 
 
 
