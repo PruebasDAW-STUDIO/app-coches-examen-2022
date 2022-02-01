@@ -68,13 +68,13 @@ router.post('/passrecovery', async (req, res) => {
     //TENEMOS QUE GENERAR EL TOKEN Y ENVIAR EL EMAIL CON LA RUTA CON ID Y EL TOKEN
 
     const user_id = user.id;
-    const token = jwt.sign({
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
-      data: 'reset_password'
-    }, 'secret');
+    const token = jwt.sign({      
+      data: 'reset_password',
+      user_id: user.id,
+    }, 'secret', { expiresIn: 1*60 });
     console.log('TOKENIZATE', token);
     console.log('RUTA:', `localhost:3000/authentication/resetpass/${user.id}/${token}`);
-    const resetlink = `localhost:3000/authentication/resetpass/${user.id}/${token}`;
+    const resetlink = `http://localhost:3000/authentication/resetpass/${user.id}/${token}`;
 
     console.log(resetlink);
     helpers.sendEmailReset(user.username, user.email, resetlink);
@@ -92,10 +92,13 @@ router.post('/passrecovery', async (req, res) => {
     
 });
 
-router.get('/resetpass', helpers.ensureToken, (req, res) => {
-  res.json({
+router.get('/resetpass/:id/:token', helpers.validateToken, (req, res, next) => {
+
+  console.log(res.locals.usario);
+  res.send("FORMULARIO RESET PASSWORD");
+  /*res.json({
     text: 'protegido'
-  });
+  });*/
 
 });
 
