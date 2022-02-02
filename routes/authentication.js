@@ -102,4 +102,6 @@ router.get('/resetpass/:id/:token', helpers.validateToken, (req, res, next) => {
 
 });
 
+//HAY QUE HACER EL POST DE LA RUTA DE ARRIBA CON EL FORMULARIO DE NUEVA CONTRASEÑA
+
 module.exports = router;
