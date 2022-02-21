@@ -80,7 +80,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 app.use('/authentication', authenticationRouter);
-app.use('/links', linksRouter);
+app.use('/cars', linksRouter);
 
 
 
