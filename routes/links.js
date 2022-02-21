@@ -18,15 +18,16 @@ router.get('/add', isLoggedIn, function(req, res, next){
 
 router.post('/add', isLoggedIn, async function(req, res){
   //res.render('links/add');
-  const {title, url, description} = req.body;
+  const {marca, modelo,potencia, url} = req.body;
   const newLink = {
-    title,
+    marca,
+    modelo,
+    potencia,
     url,
-    description,
     user_id: req.user.id
   };
   console.log(newLink);
-  await pool.query('INSERT INTO links SET ?', [newLink]);
+  await pool.query('INSERT INTO cars SET ?', [newLink]);
   //res.send("Received");
   //req.session.variable = 'Link saved successfully'
   req.flash('correcto', 'Link agregado correctamente');
@@ -35,16 +36,16 @@ router.post('/add', isLoggedIn, async function(req, res){
 
 router.get('/', isLoggedIn, async function(req, res){
   
-  const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
+  const coches = await pool.query('SELECT * FROM cars WHERE user_id = ?', [req.user.id]);
   //console.log(links);
   //res.send('Las listas irán aquí');
-  res.render('links/list', {links});
+  res.render('links/list', {coches});
   
 });
 
 router.get('/delete/:id', isLoggedIn, async (req, res) => {
   const {id} = req.params;
-  await pool.query('DELETE FROM links WHERE id = ? AND user_id = ?', [id, req.user.id]);
+  await pool.query('DELETE FROM cars WHERE id = ? AND user_id = ?', [id, req.user.id]);
   req.flash('correcto', 'Link borrado correctamente');
   res.redirect('/links');
 });
@@ -53,21 +54,22 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
   const {id} = req.params;
   //console.log(id);
   //res.send('Received Edit');
-  const links = await pool.query('SELECT * FROM links WHERE id = ?', [id]);
+  const links = await pool.query('SELECT * FROM cars WHERE id = ?', [id]);
   console.log(links[0]);
   res.render('links/edit', {link: links[0]});
 });
 
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
   const {id} = req.params;
-  const {title, url, description} = req.body;
+  const {marca, modelo, potencia, url} = req.body;
   const newLink = {
-    title,
-    url,
-    description
+    marca,
+    modelo,
+    potencia,
+    url
   };
 
-  await pool.query('UPDATE links SET ? WHERE id = ? AND user_id = ?', [newLink, id, req.user.id]);
+  await pool.query('UPDATE cars SET ? WHERE id = ? AND user_id = ?', [newLink, id, req.user.id]);
   req.flash('correcto', 'Link actualizado correctamente');
   res.redirect('/links');
 });

@@ -5,13 +5,16 @@
                 <div class="card-body">
                     <form action="/links/add" method="POST">
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" name="title" placeholder="Title" autofocus>
+                            <input type="text" class="form-control" name="marca" placeholder="Marca" autofocus>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" name="modelo" placeholder="Modelo">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="number" class="form-control" name="potencia" placeholder="Potencia">
                         </div>
                         <div class="form-group mb-3">
                             <input type="url" class="form-control" name="url" placeholder="URL">
-                        </div>
-                        <div class="form-group mb-3">
-                            <textarea name="description" rows="2" class="form-control" placeholder="Description"></textarea>
                         </div>
                         <div class="form-group text-center">
                             <button class="btn btn-success btn-block">

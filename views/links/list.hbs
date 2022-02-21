@@ -1,17 +1,15 @@
 <div class="container p-4">
     <div class="row">
-        {{#each links}}
+        {{#each coches}}
             <div class="col-md-3 mb-3">
                 <div class="card text-center">
-                    <div class="card-body">
-                        <a href="{{url}}"  style="text-decoration: none;" target="_blank">
-                            <h3 class="card-title text-uppercase">
-                                {{title}}
-                            </h3>                            
-                        </a>
-                        <p class="m-2">{{description}}</p>
-                        <p class="m-2">{{timeago created_at}}</p>
-                        <a href="/links/delete/{{id}}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar Link</a>
+                    <div class="card-body">                          
+
+                        <img src="{{url}}" alt="" class="card-img-top mx-auto m-2 w-50" />    
+                        <p class="m-2">{{marca}}</p>
+                        <p class="m-2">{{modelo}}</p>
+                        <p class="m-2">{{potencia}}</p>
+                        <a href="/links/delete/{{id}}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar Coche</a>
                         <a href="/links/edit/{{id}}" class="btn btn-secondary"><i class="fas fa-pencil-alt"></i> Editar</a>
                     </div>
                 </div>
@@ -19,7 +17,7 @@
         {{else}}
             <div class="col-md-4 mx-auto">
                 <div class="card card-body text-center">
-                    <p>There are not links saved yet.</p>
+                    <p>There are not coches saved yet.</p>
                     <a href="/links/add" class="btn btn-primary">Create One!</a>
                 </div>
             </div>                
