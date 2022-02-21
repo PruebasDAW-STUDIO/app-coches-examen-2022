@@ -1,0 +1,20 @@
+CREATE DATABASE mycars CHARSET utf8mb4;
+USE mycars;
+
+CREATE TABLE users(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(16) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    fullname VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE cars(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(150) NOT NULL,
+    modelo VARCHAR(255) NOT NULL,
+    potencia INT,
+    url VARCHAR(255) NOT NULL,
+    user_id INT UNSIGNED,
+    CONSTRAINT fkuser FOREIGN KEY(user_id) REFERENCES users(id)
+);
